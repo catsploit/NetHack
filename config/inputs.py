@@ -7,7 +7,7 @@ from config.basic_functs import *
 from config.banners import *
 import cmd
 import os
-import subprocess
+import getpass
 init()
 
 #############################
@@ -38,6 +38,7 @@ class BasicCommands(cmd.Cmd):
         credits()
 
     def do_import(self, args):
+        user = getpass.getuser()
         modules = os.listdir('C://Users/Nicolás/NetHack/modules')
         if args in modules:
             if args == 'bluetooth':
