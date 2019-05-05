@@ -8,6 +8,7 @@ from config.banners import *
 import cmd
 import os
 import getpass
+import subprocess
 init()
 
 #############################
@@ -33,6 +34,33 @@ class BasicCommands(cmd.Cmd):
 
     def do_exit(self,args):
         exit_program()
+
+    def do_getwifipass(self, args):
+        list=[]
+        password_list=[]
+
+        data=subprocess.check_output(['netsh', 'wlan', 'show', 'profiles']).decode('utf-8').split('\n')
+        for i in data:
+            if i.startswith("    Perfil de todos los usuarios     : "):
+                value=i.replace("    Perfil de todos los usuarios     : ", "")
+                if value.endswith("\r"):
+                    element=value.replace("\r", "")
+                    list.append(element)
+
+        for i in list:
+            results = subprocess.check_output(['netsh', 'wlan', 'show', 'profile', "name={}".format(i), 'key=clear'])
+            resultados=str(results).split("\\n")
+            puliendo=resultados[30].replace("    Contenido de la clave  : ", "")
+            password=puliendo.replace("\\r", "")
+            password_list.append(resultados)
+
+        dicionario={}
+        cont=0
+        for i in list:
+            dicionario[i]=password_list[cont]
+            cont+=1
+
+        print(dicionario)
 
     def do_credits(self, args):
         credits()
