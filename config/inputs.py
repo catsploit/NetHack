@@ -39,7 +39,7 @@ class BasicCommands(cmd.Cmd):
 
     def do_import(self, args):
         user = getpass.getuser()
-        modules = os.listdir('C://Users/Nicolás/NetHack/modules')
+        modules = os.listdir('C://Users/'+ user +'/NetHack/modules')
         if args in modules:
             if args == 'bluetooth':
                 from modules import bluetooth
