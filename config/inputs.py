@@ -24,7 +24,7 @@ class BasicCommands(cmd.Cmd):
     def do_cwd(self,args):
         current_working_directory()
 
-    def do_listdir(self, args):
+    def do_ls(self, args):
         list_dir()
 
     def do_cls(self, args):
