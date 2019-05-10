@@ -52,7 +52,7 @@ class BasicCommands(cmd.Cmd):
             resultados=str(results).split("\\n")
             puliendo=resultados[30].replace("    Contenido de la clave  : ", "")
             password=puliendo.replace("\\r", "")
-            password_list.append(resultados)
+            password_list.append(password)
 
         dicionario={}
         cont=0
@@ -67,18 +67,26 @@ class BasicCommands(cmd.Cmd):
 
     def do_import(self, args):
         user = getpass.getuser()
-        modules = os.listdir('C://Users/'+ user +'/NetHack/modules')
+        modules = os.listdir('C://Users/Nicolás/Desktop/Python/NetHack/NetHack - release/NetHack/modules')
         if args in modules:
             if args == 'bluetooth':
                 from modules import bluetooth
                 print(Fore.CYAN+Style.BRIGHT+"[NT] Imported {}\n".format(args)+Fore.RESET+Style.RESET_ALL)
 
+            if args == 'cmd':
+                from modules import cmd
+                print(Fore.CYAN+Style.BRIGHT+"[NT] Imported {}\n".format(args)+Fore.RESET+Style.RESET_ALL)
+
         else:
             print(Fore.RED+Style.NORMAL+"[NT] Error: '{}' module do not exist\n".format(args))
 
-    def do_banner(self,args):
+    def do_banner(self, args):
         os.system('cls')
         print_banner()
+
+    def do_cmd(self, args):
+        print("")
+        os.system('cd modules && cd cmd && python cmdin.py')
 
     def emptyline(self):
         print('')
